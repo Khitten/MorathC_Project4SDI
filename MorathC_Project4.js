@@ -16,6 +16,12 @@ if( ! validatePhone( "12-3456-7890" ) ){
 	console.log( "12-3456-7890 is not a valid format." );
 }
 
+if(validateEmail("abcd.gets@eu") ){
+	console.log("This is a valid email format");
+} else {
+	console.log("This is not a valid email format");
+}
+
 function validatePhone( phoneNumber ){
 	var numbers = "1234567890";
 	if( phoneNumber.length != 12 ){
@@ -65,4 +71,29 @@ function validateURL( URL ){
 		return true;
 	}
 	return false;
+}
+//Does a string follow an aaa@bbb.ccc pattern like an email address?
+
+function validateEmail( email )
+{
+	var validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@";
+	var atSymbolPos = email.indexOf( "@" );
+	var period = email.indexOf( "." );
+	var atSymbolLastPos = email.lastIndexOf( "@" );
+	var periodLastPos = email.lastIndexOf( "." );
+		if(atSymbolPos === -1 || atSymbolPos === 0 || atSymbolPos != atSymbolLastPos){
+			return false;
+		}
+		if(period === -1 || period === (email.length - 1) || period != periodLastPos){
+			return false;
+		}
+		if(atSymbolPos > (period - 2)){
+			return false;
+		}
+		for (var i=0; i<email.length; i++){
+			if( validChars.indexOf( email.charAt( i ) ) === -1 ){
+				return false;
+			}
+		}
+		return true;
 }
